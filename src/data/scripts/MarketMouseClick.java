@@ -47,6 +47,7 @@ public class MarketMouseClick {
             }
         } else if (enableControl) {
             releaseControl();
+            clickSort(isMarket);
         }
     }
 
