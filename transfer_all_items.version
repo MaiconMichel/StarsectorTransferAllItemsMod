@@ -1,0 +1,11 @@
+{
+    "masterVersionFile":"https://github.com/MaiconMichel/StarsectorTransferAllItemsMod.git",
+    "modName":"Transfer All Items",
+    #"modThreadId":0,
+    "modVersion":
+    {
+        "major":0,
+        "minor":1,
+        "patch":0
+    }
+}
