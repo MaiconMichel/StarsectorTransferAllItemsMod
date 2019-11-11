@@ -3,7 +3,7 @@
 	"name"       : "Transfer All Items",
 	"author"     : "Nociam",
 	"utility"    : "true",
-	"version"    : "0.1",
+	"version"    : "1.0",
 	"description": "Enable the shortcut key to transfer all items at once between fleet and storage or market.",
 	"gameVersion": "0.9.1a",
 	"jars"       : ["jars/TransferAllItems.jar"],
