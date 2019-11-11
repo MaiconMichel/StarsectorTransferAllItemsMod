@@ -1,5 +1,5 @@
 {
-    "masterVersionFile":"https://raw.githubusercontent.com/MaiconMichel/StarsectorTransferAllItemsMod/master/transfer_all_items.version",
+    "masterVersionFile":"https://raw.githubusercontent.com/MaiconMichel/StarsectorTransferAllItemsMod/master/modfiles/transfer_all_items.version",
     "modName":"Transfer All Items",
     # The ID of the thread where updates to this mod can be found (optional).
     # This is used to launch directly to the forum thread from in the game.
