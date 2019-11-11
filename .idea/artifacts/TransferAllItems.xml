@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="TransferAllItems">
+    <output-path>D:/Windows/Program Files/Starsector/mods/Transfer All Items/jars</output-path>
+    <root id="archive" name="TransferAllItems.jar">
+      <element id="module-output" name="TransferAllItemsMod" />
+      <element id="module-source" name="TransferAllItemsMod" />
+    </root>
+  </artifact>
+</component>
