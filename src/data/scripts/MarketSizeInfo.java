@@ -1,10 +1,8 @@
 package data.scripts;
 
 import com.fs.starfarer.api.Global;
-import org.lwjgl.opengl.*;
 
-import java.awt.*;
-
+@SuppressWarnings("WeakerAccess")
 public class MarketSizeInfo {
     public static final int SQUARE_SIZE = 100;
     private static final int MAX_QUANTITY_ITEMS = 120;
@@ -57,66 +55,31 @@ public class MarketSizeInfo {
     }
 
     public static int getFirstColumnX() {
-        return getWindowsPosX() + firstColumnX;
+        return StarsectorAppInfo.getX() + firstColumnX;
     }
 
     public static int getFirstRowMarketY() {
-        return getWindowsPosY() + firstRowMarketY;
+        return StarsectorAppInfo.getY() + firstRowMarketY;
     }
 
     public static int getFirstRowFleetY() {
-        return getWindowsPosY() + firstRowFleetY;
+        return StarsectorAppInfo.getY() + firstRowFleetY;
     }
 
     public static int getSortX() {
-        return getWindowsPosX() + sortX;
+        return StarsectorAppInfo.getX() + sortX;
     }
 
     public static int getSortMarketY() {
-        return getWindowsPosY() + sortMarketY;
+        return StarsectorAppInfo.getY() + sortMarketY;
     }
 
     public static int getSortFleetY() {
-        return getWindowsPosY() + sortFleetY;
-    }
-
-    private static int getWindowsPosX() {
-        if (!Display.isFullscreen()) {
-            return Display.getX() ;
-        }
-
-        return 0;
-    }
-
-    private static int getWindowsPosY() {
-        if (!Display.isFullscreen()) {
-            return Display.getY() + getWinTitleBarHeight();
-        }
-
-        return 0;
-    }
-
-    private static int getWinTitleBarHeight() {
-        final int FIX_VALUE = 3;
-        Object value = Toolkit.getDefaultToolkit().getDesktopProperty("win.frame.captionHeight");
-
-        if (value != null && ((int)value) > 0) {
-            return ((int)value) + FIX_VALUE;
-        }
-
-        return 0;
-    }
-
-    private static int getScreenHeight() {
-        return (int)Global.getSettings().getScreenHeight();
-    }
-
-    private static int getScreenWidth() {
-        return (int)Global.getSettings().getScreenWidth();
+        return StarsectorAppInfo.getY() + sortFleetY;
     }
 
     private static int calcColumns() {
-        int columns = (getScreenWidth() - WIDTH_BORDER * 2 - WIDTH_LEFT_PANEL) / SQUARE_SIZE;
+        int columns = (StarsectorAppInfo.getScreenWidth() - WIDTH_BORDER * 2 - WIDTH_LEFT_PANEL) / SQUARE_SIZE;
         return Math.min(columns, MAX_COLUMNS);
     }
 
@@ -125,7 +88,7 @@ public class MarketSizeInfo {
     }
 
     private static float calcRowsVisible() {
-        float rowsVisible = (float)Math.floor((getScreenHeight() - HEIGHT_MIN_BORDER * 2 - HEIGHT_TAB * 2 -
+        float rowsVisible = (float)Math.floor((StarsectorAppInfo.getScreenHeight() - HEIGHT_MIN_BORDER * 2 - HEIGHT_TAB * 2 -
                               HEIGHT_INFO_TOP - HEIGHT_BUTTONS_MID - HEIGHT_BAR_BOTTOM) / 2F / SQUARE_SIZE * 100) / 100;
         return Math.min(rowsVisible, MAX_VISIBLE_ROWS);
     }
@@ -139,11 +102,11 @@ public class MarketSizeInfo {
     }
 
     private static int calcStartDrawAreaY(int heightGrid) {
-        return (getScreenHeight() - calcHeightDrawArea(heightGrid) - HEIGHT_BAR_BOTTOM) / 2;
+        return (StarsectorAppInfo.getScreenHeight() - calcHeightDrawArea(heightGrid) - HEIGHT_BAR_BOTTOM) / 2;
     }
 
     private static int calcStartDrawAreaX(int columns) {
-        int value = (getScreenWidth() - columns * SQUARE_SIZE) / 2;
+        int value = (StarsectorAppInfo.getScreenWidth() - columns * SQUARE_SIZE) / 2;
         return Math.max(value, WIDTH_LEFT_PANEL + WIDTH_BORDER);
     }
 
@@ -172,6 +135,7 @@ public class MarketSizeInfo {
     }
 
     private static void showInfo() {
-        Global.getSector().getCampaignUI().addMessage("Market: (" + getFirstColumnX() + "," + getFirstRowMarketY() + ") Sort: (" + getSortX() + "," + getSortMarketY() + ")");
+        Global.getSector().getCampaignUI().addMessage("Market: (" + getFirstColumnX() + "," + getFirstRowMarketY() + ") Sort: (" + getSortX() + "," + getSortMarketY() + ") - " +
+                                                            "Fleet: (" + getFirstColumnX() + "," + getFirstRowFleetY()  + ") Sort: (" + getSortX() + "," + getSortFleetY()  + ") ");
     }
 }

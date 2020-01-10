@@ -10,7 +10,7 @@ import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 
 public class MarketMouseClick {
-    private static boolean flagBeginClickAll = false;
+    private boolean flagBeginClickAll = false;
     private int row;
     private int col;
     private int x;
@@ -93,7 +93,7 @@ public class MarketMouseClick {
             Robot robot = new Robot();
             robot.keyPress(KeyEvent.VK_CONTROL);
             enableControl = true;
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
     }
 
@@ -102,12 +102,12 @@ public class MarketMouseClick {
             Robot robot = new Robot();
             robot.keyRelease(KeyEvent.VK_CONTROL);
             enableControl = false;
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
     }
 
     private void mouseClick(int x, int y) {
-        Point currentPlayerMousePoint = getCurrentMousePoint();
+        Point currentPlayerMousePoint = StarsectorAppInfo.getMousePoint();
 
         try {
             Robot robot = new Robot();
@@ -115,12 +115,8 @@ public class MarketMouseClick {
             robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
             robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
             robot.mouseMove(currentPlayerMousePoint.x, currentPlayerMousePoint.y);
-        } catch (Exception e) {
+        } catch (Exception ignored) {
         }
-    }
-
-    private Point getCurrentMousePoint() {
-        return MouseInfo.getPointerInfo().getLocation();
     }
 
     private CargoAPI getCargoFleet() {
