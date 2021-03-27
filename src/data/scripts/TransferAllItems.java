@@ -21,7 +21,7 @@ public class TransferAllItems implements EveryFrameScript {
 
     @Override
     public void advance(float amount) {
-       if (Global.getSector().getCampaignUI().getCurrentCoreTab() == CoreUITabId.CARGO) {
+        if (Global.getSector().getCampaignUI().getCurrentCoreTab() == CoreUITabId.CARGO) {
             getMarketMouseClick().updateFrame();
             checkInput();
         } else if (marketMouseClick != null) {

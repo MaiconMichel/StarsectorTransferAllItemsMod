@@ -22,14 +22,13 @@ public class MarketMouseClick {
 
     public void updateFrame() {
         if (flagBeginClickAll) {
-            if (lastClick) {
+            if (!(Keyboard.isKeyDown(Keyboard.KEY_LCONTROL) ||
+                  Keyboard.isKeyDown(Keyboard.KEY_RCONTROL))) {
                 pressControl();
+            } else if (lastClick) {
                 mouseClick(x, y);
                 lastClick = false;
                 flagBeginClickAll = false;
-            } else if (!(Keyboard.isKeyDown(Keyboard.KEY_LCONTROL) ||
-                  Keyboard.isKeyDown(Keyboard.KEY_RCONTROL))) {
-                  pressControl();
             } else if (col >= MarketSizeInfo.getColumns()) {
                 row++;
                 col = 0;
@@ -39,7 +38,6 @@ public class MarketMouseClick {
                 lastClick = true;
                 row = MarketSizeInfo.getRows() + 1;
             } else if (row <= MarketSizeInfo.getRows()) {
-                pressControl();
                 mouseClick(x + MarketSizeInfo.SQUARE_SIZE * col, y);
                 col++;
             } else {
@@ -62,13 +60,13 @@ public class MarketMouseClick {
     private void clickAll(final int x, final int y, final MarketAPI marketAPI, final CargoAPI cargoAPI) {
         if (flagBeginClickAll) return;
 
+        flagBeginClickAll = true;
         this.row = 0;
         this.col = 0;
         this.x = x;
         this.y = y;
         this.isMarket = marketAPI != null;
         this.marketTabManager = isMarket ? new MarketTabManager(marketAPI) : new MarketTabManager(cargoAPI);
-        flagBeginClickAll = true;
         clickSort(isMarket);
     }
 
@@ -124,6 +122,10 @@ public class MarketMouseClick {
     }
 
     private MarketAPI getMarket() {
-        return Global.getSector().getCampaignUI().getCurrentInteractionDialog().getInteractionTarget().getMarket();
+        try {
+            return Global.getSector().getCampaignUI().getCurrentInteractionDialog().getInteractionTarget().getMarket();
+        } catch (Exception ignored) {
+            return null;
+        }
     }
 }

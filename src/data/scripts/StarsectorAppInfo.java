@@ -5,6 +5,7 @@ import org.lwjgl.opengl.Display;
 
 import java.awt.*;
 
+@SuppressWarnings("SpellCheckingInspection")
 public final class StarsectorAppInfo {
     private static int titleBarHeight = 0;
     private static int correctionX    = 0;
@@ -22,14 +23,6 @@ public final class StarsectorAppInfo {
 
     public static Point getMousePoint() {
         return MouseInfo.getPointerInfo().getLocation();
-    }
-
-    public static int getMouseX() {
-        return getMousePoint().x;
-    }
-
-    public static int getMouseY() {
-        return getMousePoint().y;
     }
 
     public static int getScreenHeight() {

@@ -5,20 +5,18 @@ import com.fs.starfarer.api.campaign.econ.MarketAPI;
 import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
 import com.fs.starfarer.api.impl.campaign.ids.Submarkets;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
+@SuppressWarnings("SpellCheckingInspection")
 public class MarketTabManager {
-    private MarketAPI market;
     private List<SubmarketAPI> submarkets;
-    private List<Float> quantityList = new ArrayList<>();
+    private Map<SubmarketAPI, Float> quantityList = new HashMap<>();
     private CargoAPI cargoCurrent;
     private float quantityOld = -1;
     private float quantityCurrent = -1;
     private float countForceEnd = 0;
 
     public MarketTabManager(MarketAPI market) {
-        this.market = market;
         this.submarkets = getSubmarket(market);
         updateQuantityList();
     }
@@ -37,7 +35,7 @@ public class MarketTabManager {
             countForceEnd++;
         }
 
-        return (quantityCurrent >= 0 && quantityOld == quantityCurrent) || countForceEnd > 1;
+        return (quantityCurrent == 0 && quantityOld == quantityCurrent) || countForceEnd > 5;
     }
 
     private void updateCargo() {
@@ -45,11 +43,11 @@ public class MarketTabManager {
             if (submarkets.size() == 1) {
                 cargoCurrent = submarkets.get(0).getCargo();
             } else {
-                for (int i = 0; i < submarkets.size(); i++) {
-                    SubmarketAPI submarket = submarkets.get(i);
-                    float quantity = quantityList.get(i);
+                for (SubmarketAPI submarket : submarkets) {
+                    float quantityOld = quantityList.get(submarket);
+                    float quantityNew = getQuantity(submarket.getCargo());
 
-                    if (getQuantity(submarket.getCargo()) != quantity) {
+                    if (quantityOld != quantityNew) {
                         cargoCurrent = submarket.getCargo();
                         return;
                     }
@@ -61,10 +59,8 @@ public class MarketTabManager {
     private void updateQuantityList() {
         quantityList.clear();
 
-        if (submarkets != null) {
-            for (SubmarketAPI submarketAPI : submarkets) {
-                quantityList.add(getQuantity(submarketAPI.getCargo()));
-            }
+        for (SubmarketAPI submarket : submarkets) {
+            quantityList.put(submarket, getQuantity(submarket.getCargo()));
         }
     }
 
